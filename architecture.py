@@ -32,7 +32,6 @@ class VAE(nn.Module):
     def encode(self,x):
         # B,C,H,W
         flat_x = torch.flatten(x, start_dim=1)
-        print(flat_x.shape)
         out = self.common_fc(flat_x)
         mean = self.mean_fc(out)
         log_var = self.log_var_fc(out)
@@ -41,7 +40,8 @@ class VAE(nn.Module):
 
     def sample(self, mean, log_var):
         std = torch.exp(0.5*torch.flatten(log_var, start_dim=-1))
-        z = torch.randn_like(torch.flatten(std, start_dim=-1))
+        z = torch.randn_like(torch.flatten(std, start_dim=-1)
+                             ,requires_grad=True)
         return z * std + mean
     
     
@@ -73,6 +73,7 @@ class VAE(nn.Module):
 
     def generate(self,device):
         n_sample = torch.normal(
-            0.,torch.tensor(1,dtype=float)).to(device) # A sample from the standard normal distribution
+            mean=0.,std=1.,size=(2,),requires_grad=False).to(device) # A sample from the standard normal distribution
+        
         gen = self.decode(n_sample)
         return gen

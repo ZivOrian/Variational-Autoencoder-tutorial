@@ -15,6 +15,9 @@ my_vae.eval()
 number_img_T = my_vae.generate(dev) # The tensor representing the image
 print(number_img_T.shape)
 
-transform_img = transforms.ToPILImage(number_img_T)
+number_img_T = torch.reshape(number_img_T,(28,28))
+transform_img = transforms.ToPILImage()
+
 number_img = transform_img(number_img_T)
 number_img.show()
+number_img.save("same_f_number.png")

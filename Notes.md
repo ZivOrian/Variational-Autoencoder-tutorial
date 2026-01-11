@@ -1,4 +1,6 @@
 ## Things that need to be improved:
 
-1. Accumulate log_var and mean, right now you just take the final ones – see section **"Training"** [See Training section](main.ipynb#cell-10)
+1. Generate an image with the model through [](test.py) file
+2. Run an accuracy test for the model
+3. Add hyperparameter optimization with Optuna
 
